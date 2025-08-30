@@ -1,5 +1,6 @@
 const express = require('express');
 const pool = require('./db/db');
+const authRoutes = require('./routes/authRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -7,7 +8,10 @@ const port = 3000;
 
 app.use(express.json());
 
-// Test database connection
+// Auth routes
+app.use('/api/auth', authRoutes);
+
+// Test database connection (from before)
 app.get('/api/db-test', async (req, res) => {
   try {
     const result = await pool.query('SELECT NOW()');
